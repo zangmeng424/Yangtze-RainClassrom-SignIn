@@ -1,2 +1,2 @@
-SESSIONID = "82lnucgfrylinmq0jna58rj1gjowipe8"
+SESSIONID = ""
 TIME = "5"
