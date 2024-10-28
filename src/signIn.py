@@ -41,7 +41,8 @@ def check_and_sign(check_num=1):
             courseware_id = courseware_info.get("coursewareId")
             courseware_title = courseware_info.get("coursewareTitle")
             course_name = courseware_info.get("courseName")
-
+            course_url = courseware_info.get("url",None)
+            
             logs = read_log(log_file_name)
             if logs and logs[-1]["id"] == courseware_id:
                 print("已签过")
@@ -49,12 +50,20 @@ def check_and_sign(check_num=1):
 
             print("标题:", courseware_title)
             print("名称:", course_name)
+           
 
             sign_data["lessonId"] = str(courseware_id)
             response_sign = requests.post(url + api["sign_in_class"], headers=headers, json=sign_data)
 
             if response_sign.status_code == 200:
-                print(name,"签到成功")
+                status = ""
+                
+                if "http" in course_url :
+                    status = "已签到"
+                else :
+                    status = "非课堂 已签到"
+                print(name,status)
+
                 sign_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 print("时间:", sign_time)
                 # 将签到信息写入文件顶部
@@ -64,11 +73,12 @@ def check_and_sign(check_num=1):
                     "name": course_name,
                     "time": sign_time,
                     "student" : name,
-                    "status": "签到成功"
+                    "status": status,
+                    "url" : course_url
                 }
                 write_log(log_file_name, new_log)
             else:
-                print("签到失败", response_sign.status_code, response_sign.text)
+                print("失败", response_sign.status_code, response_sign.text)
         else:
             print("没有找到数据")
     else:
