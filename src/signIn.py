@@ -56,7 +56,7 @@ def check_and_sign(check_num=1):
             response_sign = requests.post(url + api["sign_in_class"], headers=headers, json=sign_data)
 
             if response_sign.status_code == 200:
-                status = ""
+                status = "签到成功"
                 
                 print(name,status)
 
