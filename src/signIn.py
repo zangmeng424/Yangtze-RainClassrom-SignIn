@@ -58,10 +58,6 @@ def check_and_sign(check_num=1):
             if response_sign.status_code == 200:
                 status = ""
                 
-                if "http" in course_url :
-                    status = "已签到"
-                else :
-                    status = "非课堂 已签到"
                 print(name,status)
 
                 sign_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -74,7 +70,7 @@ def check_and_sign(check_num=1):
                     "time": sign_time,
                     "student" : name,
                     "status": status,
-                    "url" : course_url
+                    "url" : "https://changjiang.yuketang.cn/m/v2/lesson/student/"+str(courseware_id)
                 }
                 write_log(log_file_name, new_log)
             else:

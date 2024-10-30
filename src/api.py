@@ -12,7 +12,9 @@ api = {
     # 登录雨课堂账号
     "login_user": "pc/login/verify_pwd_login/",
     # 个人信息
-    "user_info" : "v2/api/web/userinfo"
+    "user_info" : "v2/api/web/userinfo",
+    # 如果是课堂 可以通过此URL进入课堂查看PPT 尾接courseID
+    "class_info" : "m/v2/lesson/student/"
 }
 
 log_file_name = "log.json"
