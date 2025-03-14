@@ -1,8 +1,7 @@
+import time
 from datetime import datetime
-
 import requests
-
-from api import url, api, headers, log_file_name
+from api import url, api, headers, log_file_name,delay
 from file import write_log, read_log
 
 
@@ -37,6 +36,7 @@ def check_and_sign(check_num=1):
         response_data = response.json()
         # 提取 `data` 列表中的第一个元素信息
         if "data" in response_data and response_data["data"]:
+            time.sleep(delay)#签到延迟
             courseware_info = response_data["data"][0]
             courseware_id = courseware_info.get("coursewareId")
             courseware_title = courseware_info.get("coursewareTitle")
@@ -73,9 +73,11 @@ def check_and_sign(check_num=1):
                     "url" : "https://changjiang.yuketang.cn/m/v2/lesson/student/"+str(courseware_id)
                 }
                 write_log(log_file_name, new_log)
+                return True
             else:
                 print("失败", response_sign.status_code, response_sign.text)
         else:
             print("没有找到数据")
     else:
         print("请求失败:", response.status_code, response.text)
+    return False

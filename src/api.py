@@ -32,6 +32,9 @@ list = read(config_file_name)
 
 sessionId = re.search(r'\"(.*?)\"', list[0]).group(1)
 time = int(re.search(r'\"(.*?)\"', list[1]).group(1))
+delay = int(re.search(r'\"(.*?)\"', list[2]).group(1))
+duration = int(re.search(r'\"(.*?)\"', list[3]).group(1))
+
 
 headers = {
     "Cookie": "sessionid=" + sessionId

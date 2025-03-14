@@ -1,2 +1,4 @@
 SESSIONID = ""
 TIME = "5"
+delay = "10"
+duration = "30"
